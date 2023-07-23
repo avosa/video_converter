@@ -32,7 +32,9 @@ bundle install
 
 ## Usage
 
-Require the gem and create a new converter object with custom options:
+Require the gem and create a new converter object with custom options.
+
+To convert batch files to the desired format you can use the `rename_and_convert_files` method . For example:
 
 ```ruby
 
@@ -50,6 +52,20 @@ target_format = '.mp4' # Customize the target file format
 
 # Start the conversion process
 converter.rename_and_convert_files(root_directory, source_format, target_format)
+```
+
+To convert a specific file to the desired format you can use the `convert_single_file` method . For example:
+
+```ruby
+
+require 'video_converter'
+
+converter = VideoConverter::Converter.new
+
+# Convert a single file:
+source_file = 'path/to/source_file.ts'
+target_file = 'path/to/target_file.mp4'
+converter.convert_single_file(source_file, target_file)
 ```
 
 ## Customization Options

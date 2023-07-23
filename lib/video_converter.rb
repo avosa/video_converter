@@ -61,5 +61,15 @@ module VideoConverter
 
       threads.each(&:join)
     end
+
+    def convert_single_file(source_file, target_file)
+      if File.exist?(source_file)
+        convert_file(source_file, target_file)
+        puts "Converted: #{source_file} -> #{target_file}"
+        FileUtils.rm(source_file) # Remove the original file after conversion
+      else
+        puts "File not found: #{source_file}"
+      end
+    end
   end
 end
