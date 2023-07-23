@@ -1,4 +1,4 @@
-require 'video_converter' # Load the main gem file
+require 'video_converter' 
 
 RSpec.describe VideoConverter::Converter do
   subject(:converter) { described_class.new }

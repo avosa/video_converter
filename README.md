@@ -34,7 +34,45 @@ bundle install
 
 Require the gem and create a new converter object with custom options.
 
-To convert batch files to the desired format you can use the `rename_and_convert_files` method . For example:
+### To convert a specific file to the desired format 
+
+Use the `convert_single_file` method. For example:
+
+1. When `source_file` and `target_file` are provided:
+
+```ruby
+
+require 'video_converter'
+
+converter = VideoConverter::Converter.new
+
+# Convert a single file:
+source_file = 'path/to/source_file.ts'
+target_file = 'path/to/target_file.mp4'
+
+# Start the conversion process
+converter.convert_single_file(source_file, target_file)
+```
+
+2. When `source_file` and `target_format` are provided:
+
+```ruby
+
+require 'video_converter'
+
+converter = VideoConverter::Converter.new
+
+# Convert a single file:
+source_file = 'path/to/source_file.ts'
+target_format = '.mp4'
+
+# Start the conversion process
+converter.convert_single_file(source_file, target_format: target_format)
+```
+
+### To convert batch files to the desired format 
+
+We use the `rename_and_convert_files` method. For example:
 
 ```ruby
 
@@ -54,20 +92,10 @@ target_format = '.mp4' # Customize the target file format
 converter.rename_and_convert_files(root_directory, source_format, target_format)
 ```
 
-To convert a specific file to the desired format you can use the `convert_single_file` method . For example:
+## Run tests
 
-```ruby
-
-require 'video_converter'
-
-converter = VideoConverter::Converter.new
-
-# Convert a single file:
-source_file = 'path/to/source_file.ts'
-target_file = 'path/to/target_file.mp4'
-
-# Start the conversion process
-converter.convert_single_file(source_file, target_file)
+```bash
+rspec -fd
 ```
 
 ## Customization Options
@@ -77,14 +105,9 @@ The `VideoConverter::Converter` object can be customized with the following opti
 - batch_size: The number of files processed in each round of conversions (default is 20).
 - conversion_delay: The delay (in seconds) between each batch of conversions (default is 0.5).
 
-## Run tests
-
-```bash
-rspec -fd
-```
 
 ## Contributing
-Bug reports and pull requests are welcome on GitHub at https://github.com/avosa/video_converter.
+Bug reports and pull requests are welcome on GitHub at https://github.com/avosa/video_converter. Remember to add tests to any feature/bug.
 
 ## Acknowledgments
 The File Converter gem relies on the [streamio-ffmpeg](https://github.com/streamio/streamio-ffmpeg) library for video conversion.

@@ -62,8 +62,12 @@ module VideoConverter
       threads.each(&:join)
     end
 
-    def convert_single_file(source_file, target_file)
+    def convert_single_file(source_file, target_file = nil, target_format = nil)
       if File.exist?(source_file)
+        if target_file.nil? && !target_format.nil?
+          target_file = source_file.gsub(File.extname(source_file), target_format)
+        end
+
         convert_file(source_file, target_file)
         puts "Converted: #{source_file} -> #{target_file}"
         FileUtils.rm(source_file) # Remove the original file after conversion
