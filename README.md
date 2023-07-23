@@ -65,6 +65,8 @@ converter = VideoConverter::Converter.new
 # Convert a single file:
 source_file = 'path/to/source_file.ts'
 target_file = 'path/to/target_file.mp4'
+
+# Start the conversion process
 converter.convert_single_file(source_file, target_file)
 ```
 
