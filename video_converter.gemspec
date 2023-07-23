@@ -3,7 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'video_converter/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'video_converter'
+  spec.name          = 'video_conv'
   spec.version       = VideoConverter::VERSION
   spec.authors       = ['Webster']
   spec.email         = ['webster@asu.edu']
