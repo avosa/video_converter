@@ -51,6 +51,7 @@ module VideoConverter
             if !File.exist?(new_filename)
               convert_file(file, new_filename)
               puts "Converted: #{file} -> #{new_filename}"
+              FileUtils.rm(file) # Remove the original file after conversion
             else
               puts "Skipped conversion (already exists): #{file}"
             end
