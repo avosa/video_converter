@@ -77,6 +77,12 @@ The `VideoConverter::Converter` object can be customized with the following opti
 - batch_size: The number of files processed in each round of conversions (default is 20).
 - conversion_delay: The delay (in seconds) between each batch of conversions (default is 0.5).
 
+## Run tests
+
+```bash
+rspec -fd
+```
+
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at https://github.com/avosa/video_converter.
 
