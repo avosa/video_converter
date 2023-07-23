@@ -15,7 +15,7 @@
 Install the gem using RubyGems:
 
 ```bash
-gem install video_converter
+gem install video_conv
 ```
 
 Or add it to your project's Gemfile:
