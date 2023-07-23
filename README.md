@@ -21,7 +21,7 @@ gem install video_conv
 Or add it to your project's Gemfile:
 
 ```bash
-gem 'video_converter'
+gem 'video_conv'
 ```
 
 And then run:
