@@ -1,7 +1,6 @@
 # Video Converter
 
-![Gem Version](https://img.shields.io/gem/v/file_converter)
-![License](https://img.shields.io/github/license/avosa/video_converter)
+![Gem Version](https://img.shields.io/gem/v/video_converter)
 
 [video-converter](https://github.com/avosa/video_converter) is a Ruby gem that allows users to convert video files with custom concurrency, batch size, and conversion delay. It uses the `streamio-ffmpeg` library for video conversion, giving you the flexibility to convert video files to various formats efficiently.
 
