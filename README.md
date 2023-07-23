@@ -38,8 +38,6 @@ Require the gem and create a new converter object with custom options.
 
 Use the `convert_single_file` method. For example:
 
-1. When `source_file` and `target_file` are provided:
-
 ```ruby
 
 require 'video_converter'
@@ -52,22 +50,6 @@ target_file = 'path/to/target_file.mp4'
 
 # Start the conversion process
 converter.convert_single_file(source_file, target_file)
-```
-
-2. When `source_file` and `target_format` are provided:
-
-```ruby
-
-require 'video_converter'
-
-converter = VideoConverter::Converter.new
-
-# Convert a single file:
-source_file = 'path/to/source_file.ts'
-target_format = '.mp4'
-
-# Start the conversion process
-converter.convert_single_file(source_file, target_format: target_format)
 ```
 
 ### To convert batch files to the desired format 
