@@ -1,4 +1,4 @@
 module VideoConverter
-    VERSION = '0.2.3'.freeze
-  end
+    VERSION = '0.2.4'.freeze
+end
   

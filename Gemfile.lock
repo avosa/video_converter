@@ -1,15 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    multi_json (1.15.0)
-    streamio-ffmpeg (3.0.2)
-      multi_json (~> 1.8)
 
 PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
-  streamio-ffmpeg
 
 BUNDLED WITH
    2.4.14

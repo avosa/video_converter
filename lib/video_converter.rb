@@ -1,6 +1,6 @@
 require 'fileutils'
 require 'streamio-ffmpeg'
-require 'thread'
+require 'concurrent'
 
 module VideoConverter
   class Converter
@@ -18,48 +18,48 @@ module VideoConverter
     end
 
     def rename_and_convert_files(dir, source_ext, target_ext)
+      convert_files_in_batch(get_source_files_recursive(dir, source_ext), source_ext, target_ext)
+    end
+
+    def get_source_files_recursive(dir, source_ext)
       source_files = []
       Dir.foreach(dir) do |file|
         next if file == '.' || file == '..'
 
         current_path = File.join(dir, file)
         if File.directory?(current_path)
-          rename_and_convert_files(current_path, source_ext, target_ext) # Recursively call for subdirectories
-        else
-          if file.end_with?(source_ext)
-            source_files << current_path
-          end
+          source_files.concat(get_source_files_recursive(current_path, source_ext)) # Recursively call for subdirectories
+        elsif file.end_with?(source_ext)
+          source_files << current_path
         end
       end
 
-      source_files.each_slice(batch_size) do |file_batch|
-        convert_files_in_batch(file_batch, source_ext, target_ext)
-        sleep(conversion_delay)
-      end
+      source_files
     end
 
     def convert_files_in_batch(files, source_ext, target_ext)
-      threads = []
-      queue = Queue.new
+      executor = Concurrent::ThreadPoolExecutor.new(
+        min_threads: 1,
+        max_threads: max_concurrency,
+        max_queue: files.size,
+        fallback_policy: :caller_runs
+      )
 
-      files.each { |file| queue << file }
-
-      [max_concurrency, files.size].min.times do
-        threads << Thread.new do
-          while (file = queue.pop(true) rescue nil)
-            new_filename = file.gsub(source_ext, target_ext)
-            if !File.exist?(new_filename)
-              convert_file(file, new_filename)
-              puts "Converted: #{file} -> #{new_filename}"
-              FileUtils.rm(file) # Remove the original file after conversion
-            else
-              puts "Skipped conversion (already exists): #{file}"
-            end
+      files.each do |file|
+        executor.post do
+          new_filename = file.gsub(source_ext, target_ext)
+          if !File.exist?(new_filename)
+            convert_file(file, new_filename)
+            puts "Converted: #{file} -> #{new_filename}"
+            FileUtils.rm(file) # Remove the original file after conversion
+          else
+            puts "Skipped conversion (already exists): #{file}"
           end
         end
       end
 
-      threads.each(&:join)
+      executor.shutdown
+      executor.wait_for_termination
     end
 
     def convert_single_file(source_file, target_file = nil, target_format = nil)

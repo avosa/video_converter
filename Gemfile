@@ -2,4 +2,4 @@
 
 source "https://rubygems.org"
 
-gem "streamio-ffmpeg"
+# gem "streamio-ffmpeg"
